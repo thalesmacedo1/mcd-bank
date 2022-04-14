@@ -4,5 +4,9 @@ createdb:
 	docker exec -it postgres14 createdb --username=root --owner=root mcd_bank 
 dropdb:
 	docker exec -it postgres14 dropdb mcd_bank
+migrateup:
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/mcd_bank?sslmode=disable" -verbose up
+migratedown:
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/mcd_bank?sslmode=disable" -verbose down
 
-.PHONY: postgres createdb dropdb
+.PHONY: postgres createdb dropdb migrateup migratedown
